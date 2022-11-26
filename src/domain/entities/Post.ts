@@ -1,16 +1,15 @@
 import crypto from 'node:crypto'
-import { User } from './User'
 
 export class Post {
   id?: string
   title: string
   content: string
-  author: User
+  authorId: string
 
-  constructor({ id, title, content, author }: Post) {
+  constructor({ id, title, content, authorId }: Post) {
     this.title = title
     this.content = content
-    this.author = author
+    this.authorId = authorId
 
     if (!id) {
       this.id = crypto.randomBytes(8).toString('hex')
