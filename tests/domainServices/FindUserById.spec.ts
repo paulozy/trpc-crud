@@ -1,8 +1,8 @@
 import { FindUserByIdUseCase } from '../../src/domain/usecases/User/FindUserByIdUseCase'
-import { UserInMemoryRepository } from '../../src/shared/infra/repositories/inMemory/UserInMemoryRepository'
+import { InMemoryRepositoryFactory } from '../../src/shared/infra/factory/InMemoryRepositoryFactory'
 
 const makeSut = () => {
-  const userRepository = new UserInMemoryRepository()
+  const userRepository = new InMemoryRepositoryFactory()
   return new FindUserByIdUseCase(userRepository)
 }
 

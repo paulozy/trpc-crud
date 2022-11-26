@@ -1,8 +1,8 @@
 import { FindPostByAuthorIdUseCase } from '../../src/domain/usecases/Post/FindPostByAuthorIdUseCase'
-import { PostInMemoryRepository } from '../../src/shared/infra/repositories/inMemory/PostInMemoryRepository'
+import { InMemoryRepositoryFactory } from '../../src/shared/infra/factory/InMemoryRepositoryFactory'
 
 const makeSut = () => {
-  const postRepository = new PostInMemoryRepository()
+  const postRepository = new InMemoryRepositoryFactory()
   return new FindPostByAuthorIdUseCase(postRepository)
 }
 

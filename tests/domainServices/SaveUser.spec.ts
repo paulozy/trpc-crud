@@ -1,9 +1,9 @@
 import { User } from '../../src/domain/entities/User'
 import { SaveUserUseCase } from '../../src/domain/usecases/User/SaveUserUseCase'
-import { UserInMemoryRepository } from '../../src/shared/infra/repositories/inMemory/UserInMemoryRepository'
+import { InMemoryRepositoryFactory } from '../../src/shared/infra/factory/InMemoryRepositoryFactory'
 
 const makeSut = () => {
-  const userRepository = new UserInMemoryRepository()
+  const userRepository = new InMemoryRepositoryFactory()
   return new SaveUserUseCase(userRepository)
 }
 

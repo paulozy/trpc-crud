@@ -1,8 +1,8 @@
 import { UpdateUserUseCase } from '../../src/domain/usecases/User/UpdateUserUseCase'
-import { UserInMemoryRepository } from '../../src/shared/infra/repositories/inMemory/UserInMemoryRepository'
+import { InMemoryRepositoryFactory } from '../../src/shared/infra/factory/InMemoryRepositoryFactory'
 
 const makeSut = () => {
-  const userRepository = new UserInMemoryRepository()
+  const userRepository = new InMemoryRepositoryFactory()
   return new UpdateUserUseCase(userRepository)
 }
 
