@@ -1,11 +1,13 @@
 import { User } from '../../entities/User'
-import { IUserRepository } from '../../repositories/IUserRepository'
+import { AbstractRepositoryFactory } from '../../factory/AbstractRepositoryFactory'
 
 export class UpdateUserUseCase {
-  constructor(private readonly userRepository: IUserRepository) {}
+  constructor(private readonly repositoryFactory: AbstractRepositoryFactory) {}
 
   async update(id: string, user: User): Promise<User> {
-    const userUpdated = await this.userRepository.update(id, user)
+    const userRepository = this.repositoryFactory.getUserRepository()
+
+    const userUpdated = await userRepository.update(id, user)
     return userUpdated
   }
 }

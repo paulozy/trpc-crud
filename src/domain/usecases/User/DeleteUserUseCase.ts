@@ -1,9 +1,11 @@
-import { IUserRepository } from '../../repositories/IUserRepository'
+import { AbstractRepositoryFactory } from '../../factory/AbstractRepositoryFactory'
 
 export class DeleteUserUseCase {
-  constructor(private readonly userRepository: IUserRepository) {}
+  constructor(private readonly repositoryFactory: AbstractRepositoryFactory) {}
 
   async delete(id: string): Promise<void> {
-    await this.userRepository.delete(id)
+    const userRepository = this.repositoryFactory.getUserRepository()
+
+    await userRepository.delete(id)
   }
 }

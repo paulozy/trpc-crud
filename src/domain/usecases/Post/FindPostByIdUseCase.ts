@@ -1,11 +1,13 @@
 import { Post } from '../../entities/Post'
-import { IPostRepository } from '../../repositories/IPostRepository'
+import { AbstractRepositoryFactory } from '../../factory/AbstractRepositoryFactory'
 
 export class FindPostByIdUseCase {
-  constructor(private readonly postRepository: IPostRepository) {}
+  constructor(private readonly repositoryFactory: AbstractRepositoryFactory) {}
 
   async findById(id: string): Promise<Post> {
-    const post = await this.postRepository.findById(id)
+    const postRepository = this.repositoryFactory.getPostRepository()
+
+    const post = await postRepository.findById(id)
     return post
   }
 }

@@ -1,11 +1,13 @@
 import { Post } from '../../entities/Post'
-import { IPostRepository } from '../../repositories/IPostRepository'
+import { AbstractRepositoryFactory } from '../../factory/AbstractRepositoryFactory'
 
 export class FindPostByAuthorIdUseCase {
-  constructor(private readonly postRepository: IPostRepository) {}
+  constructor(private readonly repositoryFactory: AbstractRepositoryFactory) {}
 
   async findByAuthorId(auhtorId: string): Promise<Post[]> {
-    const posts = await this.postRepository.findByAuthorId(auhtorId)
+    const postRepository = this.repositoryFactory.getPostRepository()
+
+    const posts = await postRepository.findByAuthorId(auhtorId)
     return posts
   }
 }

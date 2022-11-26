@@ -1,11 +1,13 @@
 import { User } from '../../entities/User'
-import { IUserRepository } from '../../repositories/IUserRepository'
+import { AbstractRepositoryFactory } from '../../factory/AbstractRepositoryFactory'
 
 export class FindUserByIdUseCase {
-  constructor(private readonly userRepository: IUserRepository) {}
+  constructor(private readonly repositoryFactory: AbstractRepositoryFactory) {}
 
   async findById(id: string): Promise<User> {
-    const user = await this.userRepository.findById(id)
+    const userRepository = this.repositoryFactory.getUserRepository()
+
+    const user = await userRepository.findById(id)
     return user
   }
 }

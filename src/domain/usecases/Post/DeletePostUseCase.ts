@@ -1,9 +1,11 @@
-import { IPostRepository } from '../../repositories/IPostRepository'
+import { AbstractRepositoryFactory } from '../../factory/AbstractRepositoryFactory'
 
 export class DeletePostUseCase {
-  constructor(private readonly postRepository: IPostRepository) {}
+  constructor(private readonly repositoryFactory: AbstractRepositoryFactory) {}
 
   async delete(id: string): Promise<void> {
-    await this.postRepository.delete(id)
+    const postRepository = this.repositoryFactory.getPostRepository()
+
+    await postRepository.delete(id)
   }
 }

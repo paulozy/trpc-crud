@@ -1,11 +1,13 @@
 import { Post } from '../../entities/Post'
-import { IPostRepository } from '../../repositories/IPostRepository'
+import { AbstractRepositoryFactory } from '../../factory/AbstractRepositoryFactory'
 
 export class SavePostUseCase {
-  constructor(private readonly postRepository: IPostRepository) {}
+  constructor(private readonly repositoryFactory: AbstractRepositoryFactory) {}
 
   async save(post: Post): Promise<Post> {
-    const postCreated = await this.postRepository.save(post)
+    const postRepository = this.repositoryFactory.getPostRepository()
+
+    const postCreated = await postRepository.save(post)
     return postCreated
   }
 }
