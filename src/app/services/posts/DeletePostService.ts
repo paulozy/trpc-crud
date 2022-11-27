@@ -1,16 +1,12 @@
 import { AbstractRepositoryFactory } from '../../../domain/factory/AbstractRepositoryFactory'
 import { DeletePostUseCase } from '../../../domain/usecases/Post/DeletePostUseCase'
 import { FindPostByIdUseCase } from '../../../domain/usecases/Post/FindPostByIdUseCase'
-
-interface DeletionOutput {
-  statusCode: number
-  message: string
-}
+import { IDeletionOutput } from '../../interfaces'
 
 export class DeletePostService {
   constructor(private readonly repositoryFactory: AbstractRepositoryFactory) {}
 
-  async execute(id: string): Promise<DeletionOutput> {
+  async execute(id: string): Promise<IDeletionOutput> {
     try {
       const findPost = new FindPostByIdUseCase(this.repositoryFactory)
 

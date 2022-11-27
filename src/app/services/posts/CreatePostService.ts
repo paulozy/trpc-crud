@@ -3,7 +3,7 @@ import { AbstractRepositoryFactory } from '../../../domain/factory/AbstractRepos
 import { SavePostUseCase } from '../../../domain/usecases/Post/SavePostUseCase'
 import { FindUserByIdUseCase } from '../../../domain/usecases/User/FindUserByIdUseCase'
 import { CreatePostDTO } from '../../dtos/CreatePostDTO'
-import { ICreatePostOutput } from '../../interfaces/ICreatePostOutput'
+import { ICreatePostOutput } from '../../interfaces'
 
 export class CreatePostService {
   constructor(private readonly repositoryFactory: AbstractRepositoryFactory) {}
