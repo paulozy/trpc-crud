@@ -29,4 +29,12 @@ describe('Show Post Service', () => {
       authorId: 'c569dba5-783a-4bb1-90d2-a2ce521feb96',
     })
   })
+
+  test('Should return an error if post does not exist', async () => {
+    const { sut } = makeSut()
+    const response = await sut.execute('invalid_id')
+
+    expect(response.statusCode).toBe(400)
+    expect(response.message).toBe('Error showing post')
+  })
 })
