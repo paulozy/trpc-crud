@@ -3,12 +3,12 @@ import { AbstractRepositoryFactory } from '../../../domain/factory/AbstractRepos
 import { SavePostUseCase } from '../../../domain/usecases/Post/SavePostUseCase'
 import { FindUserByIdUseCase } from '../../../domain/usecases/User/FindUserByIdUseCase'
 import { CreatePostDTO } from '../../dtos/CreatePostDTO'
-import { ICreateOutput } from '../../interfaces/ICreateOutput'
+import { ICreatePostOutput } from '../../interfaces/ICreatePostOutput'
 
 export class CreatePostService {
   constructor(private readonly repositoryFactory: AbstractRepositoryFactory) {}
 
-  async execute(createPostInput: CreatePostDTO): Promise<ICreateOutput> {
+  async execute(createPostInput: CreatePostDTO): Promise<ICreatePostOutput> {
     try {
       const { title, content, authorId } = createPostInput
 
@@ -39,7 +39,7 @@ export class CreatePostService {
       return {
         statusCode: 400,
         message: 'Error creating post',
-        result: { error },
+        result: error,
       }
     }
   }

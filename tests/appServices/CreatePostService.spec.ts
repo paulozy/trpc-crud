@@ -27,12 +27,12 @@ describe('Create Post Service', () => {
   test('Should create a new post with correct values', async () => {
     const { input, sut } = makeSut()
 
-    const result = await sut.execute(input)
+    const response = await sut.execute(input)
 
-    expect(result).toHaveProperty('id')
-    expect(result.title).toBe(input.title)
-    expect(result.content).toBe(input.content)
-    expect(result.authorId).toBe(input.authorId)
+    expect(response.result).toHaveProperty('id')
+    expect(response.result.title).toBe(input.title)
+    expect(response.result.content).toBe(input.content)
+    expect(response.result.authorId).toBe(input.authorId)
   })
 
   test('Should throw an error if author not found', async () => {
@@ -43,6 +43,9 @@ describe('Create Post Service', () => {
       authorId: 'invalid_id',
     }
 
-    await expect(sut.execute(inputWithInvalidId)).rejects.toThrow()
+    const response = await sut.execute(inputWithInvalidId)
+
+    expect(response.statusCode).toBe(400)
+    expect(response.message).toBe('Error creating post')
   })
 })
