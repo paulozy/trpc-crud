@@ -20,4 +20,17 @@ describe('Create Post Service', () => {
     expect(result.content).toBe(input.content)
     expect(result.authorId).toBe(input.authorId)
   })
+
+  test('Should throw an error if author not found', async () => {
+    const input = new CreatePostDTO({
+      title: 'any_title',
+      content: 'any_content',
+      authorId: 'any_author_id',
+    })
+
+    const fakeRepositoryFactory = new InMemoryRepositoryFactory()
+    const sut = new CreatePostService(fakeRepositoryFactory)
+
+    await expect(sut.execute(input)).rejects.toThrow()
+  })
 })
