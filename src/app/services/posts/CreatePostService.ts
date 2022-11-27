@@ -3,31 +3,44 @@ import { AbstractRepositoryFactory } from '../../../domain/factory/AbstractRepos
 import { SavePostUseCase } from '../../../domain/usecases/Post/SavePostUseCase'
 import { FindUserByIdUseCase } from '../../../domain/usecases/User/FindUserByIdUseCase'
 import { CreatePostDTO } from '../../dtos/CreatePostDTO'
+import { ICreateOutput } from '../../interfaces/ICreateOutput'
 
 export class CreatePostService {
   constructor(private readonly repositoryFactory: AbstractRepositoryFactory) {}
 
-  async execute(createPostInput: CreatePostDTO): Promise<Post> {
-    const { title, content, authorId } = createPostInput
+  async execute(createPostInput: CreatePostDTO): Promise<ICreateOutput> {
+    try {
+      const { title, content, authorId } = createPostInput
 
-    const findAuthor = new FindUserByIdUseCase(this.repositoryFactory)
+      const findAuthor = new FindUserByIdUseCase(this.repositoryFactory)
 
-    const author = await findAuthor.findById(authorId)
+      const author = await findAuthor.findById(authorId)
 
-    if (!author) {
-      throw new Error('Author not found')
+      if (!author) {
+        throw new Error('Author not found')
+      }
+
+      const savePost = new SavePostUseCase(this.repositoryFactory)
+
+      const post = new Post({
+        title,
+        content,
+        authorId,
+      })
+
+      const postCreated = await savePost.save(post)
+
+      return {
+        statusCode: 201,
+        message: 'Post created successfully',
+        result: postCreated,
+      }
+    } catch (error) {
+      return {
+        statusCode: 400,
+        message: 'Error creating post',
+        result: { error },
+      }
     }
-
-    const savePost = new SavePostUseCase(this.repositoryFactory)
-
-    const post = new Post({
-      title,
-      content,
-      authorId,
-    })
-
-    const postCreated = await savePost.save(post)
-
-    return postCreated
   }
 }
