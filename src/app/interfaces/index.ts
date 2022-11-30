@@ -3,7 +3,7 @@ export interface IDeletionOutput {
   message: string
 }
 
-export interface ICreatePostOutput {
+export interface IOutput {
   statusCode: number
   message: string
   result: any

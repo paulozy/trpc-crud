@@ -3,12 +3,12 @@ import { AbstractRepositoryFactory } from '../../../domain/factory/AbstractRepos
 import { SavePostUseCase } from '../../../domain/usecases/Post/SavePostUseCase'
 import { FindUserByIdUseCase } from '../../../domain/usecases/User/FindUserByIdUseCase'
 import { CreatePostDTO } from '../../dtos/CreatePostDTO'
-import { ICreatePostOutput } from '../../interfaces'
+import { IOutput } from '../../interfaces'
 
 export class CreatePostService {
   constructor(private readonly repositoryFactory: AbstractRepositoryFactory) {}
 
-  async execute(createPostInput: CreatePostDTO): Promise<ICreatePostOutput> {
+  async execute(createPostInput: CreatePostDTO): Promise<IOutput> {
     try {
       const { title, content, authorId } = createPostInput
 
