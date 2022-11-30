@@ -25,11 +25,13 @@ export class PostInMemoryRepository implements IPostRepository {
 
   async save(post: Post): Promise<Post> {
     this.posts.push(post)
+
     return post
   }
 
   async findById(id: string): Promise<Post> {
     const post = this.posts.filter((post) => post.id === id)
+
     return post[0]
   }
 
@@ -39,6 +41,8 @@ export class PostInMemoryRepository implements IPostRepository {
   }
 
   async delete(id: string): Promise<void> {
+    console.log(this.posts)
+
     this.posts = this.posts.filter((post) => post.id !== id)
   }
 

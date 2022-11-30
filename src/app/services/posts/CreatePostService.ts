@@ -36,6 +36,8 @@ export class CreatePostService {
         result: postCreated,
       }
     } catch (error) {
+      console.log(error)
+
       return {
         statusCode: 400,
         message: 'Error creating post',
