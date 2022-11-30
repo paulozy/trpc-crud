@@ -39,4 +39,20 @@ describe('update Post Service', () => {
       authorId: 'any_author_id',
     })
   })
+
+  test('Should return an error if post not found', async () => {
+    const { sut } = makeSut()
+
+    const updateInput = {
+      title: 'Fazendo compras',
+      content: 'fiz compras no mercado',
+      authorId: 'any_author_id',
+    }
+
+    const response = await sut.execute('invalid_id', updateInput)
+
+    expect(response.statusCode).toBe(400)
+    expect(response.message).toBe('Error on update post')
+    expect(response.result).toEqual(new Error('Post not found'))
+  })
 })
